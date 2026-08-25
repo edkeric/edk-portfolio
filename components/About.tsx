@@ -22,9 +22,9 @@ export default function About() {
       gsap.from('.about-fade', {
         opacity: 0,
         y: 24,
-        duration: 0.7,
+        duration: 1,
         ease: 'power2.out',
-        stagger: 0.1,
+        stagger: 0.22,
         scrollTrigger: {
           trigger: rootRef.current,
           start: 'top 75%',

@@ -1,24 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Waveform from '@/components/Waveform';
-
-const CONTACT_LINKS = [
-  {
-    label: 'Email',
-    value: 'ed.keric@gmail.com',
-    href: 'mailto:ed.keric@gmail.com',
-  },
-  {
-    label: 'GitHub',
-    value: 'github.com/edkeric',
-    href: 'https://github.com/edkeric',
-  },
-  {
-    label: 'LinkedIn',
-    value: 'linkedin.com/in/edkeric',
-    href: 'https://www.linkedin.com/in/edkeric/',
-  },
-];
+import ContactLinks from '@/components/ContactLinks';
 
 export default function ContactPage() {
   return (
@@ -35,27 +18,7 @@ export default function ContactPage() {
 
         <Waveform barCount={48} className='mb-12 h-8' />
 
-        <div className='grid gap-4 sm:grid-cols-3'>
-          {CONTACT_LINKS.map((link) => {
-            const isExternal = link.href.startsWith('http');
-            return (
-              <a
-                key={link.label}
-                href={link.href}
-                target={isExternal ? '_blank' : undefined}
-                rel={isExternal ? 'noreferrer' : undefined}
-                className='group rounded-md border border-line bg-surface p-6 transition-colors hover:border-gold/60'
-              >
-                <p className='mb-2 font-mono text-xs uppercase tracking-widest2 text-gold'>
-                  {link.label}
-                </p>
-                <p className='text-ink-dim transition-colors group-hover:text-ink'>
-                  {link.value}
-                </p>
-              </a>
-            );
-          })}
-        </div>
+        <ContactLinks />
       </section>
 
       <Footer />
