@@ -15,7 +15,7 @@ import Image from 'next/image';
  */
 export default function HeroPhoto() {
   return (
-    <div className='relative z-10 order-2 mx-auto mt-10 h-[260px] w-full max-w-xs pointer-events-none md:absolute md:right-2 md:top-[calc(50%+56px)] md:order-none md:mx-0 md:mt-0 md:h-[420px] md:w-[340px] md:max-w-none md:-translate-y-1/2 lg:right-28'>
+    <div className='relative z-10 order-2 mx-auto mt-16 h-[220px] w-full max-w-[260px] pointer-events-none md:absolute md:right-2 md:top-[calc(50%+56px)] md:order-none md:mx-0 md:mt-0 md:h-[420px] md:w-[340px] md:max-w-none md:-translate-y-1/2 lg:right-28'>
       <div
         className='relative h-full w-full overflow-hidden rounded-md border border-line
           transition-all duration-700 ease-out
