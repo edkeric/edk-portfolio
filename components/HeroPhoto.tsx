@@ -30,7 +30,7 @@ export default function HeroPhoto() {
             src='/photos/hero.jpg'
             alt='Ed Keric'
             fill
-            className='object-cover'
+            className='object-cover object-top'
             sizes='(min-width: 768px) 340px, 320px'
           />
         }
