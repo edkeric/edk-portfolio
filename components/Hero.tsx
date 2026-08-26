@@ -9,24 +9,32 @@ export default function Hero() {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    let ctx: gsap.Context | undefined;
 
-      tl.from('.hero-eyebrow', { opacity: 0, y: 12, duration: 0.6 })
-        .from(
-          '.hero-line',
-          { opacity: 0, y: 28, duration: 0.8, stagger: 0.12 },
-          '-=0.3',
-        )
-        .from('.hero-sub', { opacity: 0, y: 16, duration: 0.6 }, '-=0.4')
-        .from(
-          '.hero-links a',
-          { opacity: 0, y: 10, duration: 0.5, stagger: 0.08 },
-          '-=0.3',
-        );
-    }, rootRef);
+    // Deferred to the next animation frame — see About.tsx for why.
+    const raf = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    return () => ctx.revert();
+        tl.from('.hero-eyebrow', { opacity: 0, y: 12, duration: 0.6 })
+          .from(
+            '.hero-line',
+            { opacity: 0, y: 28, duration: 0.8, stagger: 0.12 },
+            '-=0.3',
+          )
+          .from('.hero-sub', { opacity: 0, y: 16, duration: 0.6 }, '-=0.4')
+          .from(
+            '.hero-links a',
+            { opacity: 0, y: 10, duration: 0.5, stagger: 0.08 },
+            '-=0.3',
+          );
+      }, rootRef);
+    });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ctx?.revert();
+    };
   }, []);
 
   return (
@@ -37,7 +45,7 @@ export default function Hero() {
       <EqualizerBackground />
       <HeroPhoto />
 
-      <div className='relative z-10 max-w-3xl'>
+      <div className='relative z-10 order-1 max-w-3xl md:order-none'>
         <p className='hero-eyebrow mb-5 font-mono text-xs uppercase tracking-widest2 text-gold'>
           Ed Keric — Web / AI / Music
         </p>

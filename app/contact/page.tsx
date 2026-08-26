@@ -21,7 +21,7 @@ export default function ContactPage() {
         <ContactLinks />
       </section>
 
-      <Footer />
+      <Footer showLinks={false} />
     </main>
   );
 }

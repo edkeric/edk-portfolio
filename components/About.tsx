@@ -18,22 +18,34 @@ export default function About() {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.about-fade', {
-        opacity: 0,
-        y: 24,
-        duration: 1,
-        ease: 'power2.out',
-        stagger: 0.22,
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: 'top 75%',
-          once: true,
-        },
-      });
-    }, rootRef);
+    let ctx: gsap.Context | undefined;
 
-    return () => ctx.revert();
+    // Deferred to the next animation frame — landing here via a fresh page
+    // navigation (e.g. the navbar) can leave hydration/layout/font-swap work
+    // competing for the main thread right as this tween would otherwise
+    // start; GSAP then measures a large elapsed time on its first real tick
+    // and renders straight to the end, skipping the visible fade entirely.
+    const raf = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        gsap.from('.about-fade', {
+          opacity: 0,
+          y: 24,
+          duration: 1,
+          ease: 'power2.out',
+          stagger: 0.22,
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: 'top 75%',
+            once: true,
+          },
+        });
+      }, rootRef);
+    });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ctx?.revert();
+    };
   }, []);
 
   return (

@@ -54,22 +54,30 @@ export default function ProjectsGrid() {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.project-card', {
-        opacity: 0,
-        y: 32,
-        duration: 0.7,
-        ease: 'power2.out',
-        stagger: 0.12,
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: 'top 80%',
-          once: true,
-        },
-      });
-    }, rootRef);
+    let ctx: gsap.Context | undefined;
 
-    return () => ctx.revert();
+    // Deferred to the next animation frame — see About.tsx for why.
+    const raf = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        gsap.from('.project-card', {
+          opacity: 0,
+          y: 32,
+          duration: 1,
+          ease: 'power2.out',
+          stagger: 0.4,
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: 'top 80%',
+            once: true,
+          },
+        });
+      }, rootRef);
+    });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ctx?.revert();
+    };
   }, []);
 
   return (
@@ -78,12 +86,21 @@ export default function ProjectsGrid() {
       ref={rootRef}
       className='scroll-mt-20 border-b border-line px-6 py-24 md:px-12'
     >
-      <p className='mb-3 font-mono text-xs uppercase tracking-widest2 text-gold'>
-        Just Some
-      </p>
-      <h2 className='mb-12 max-w-xl text-3xl text-ink md:text-4xl'>
-        Experiments
-      </h2>
+      <div className='mb-12 flex flex-wrap items-end justify-between gap-4'>
+        <div>
+          <p className='mb-3 font-mono text-xs uppercase tracking-widest2 text-gold'>
+            Just Some
+          </p>
+          <h2 className='text-3xl text-ink md:text-4xl'>Experiments</h2>
+        </div>
+
+        <div className='flex items-center gap-2 pb-1 font-mono text-xs uppercase tracking-widest2 text-ink-dim'>
+          <span>See more</span>
+          <span aria-hidden='true' className='inline-block animate-nudge-x text-gold'>
+            →
+          </span>
+        </div>
+      </div>
 
       <div className='no-scrollbar -mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-2 [scroll-padding-inline:1.5rem] md:-mx-12 md:px-12 md:[scroll-padding-inline:3rem]'>
         {PROJECTS.map((project) => (

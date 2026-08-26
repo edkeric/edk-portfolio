@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ProjectsGrid from "@/components/ProjectsGrid";
 import About from "@/components/About";
+import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -11,7 +12,8 @@ export default function Home() {
       <Hero />
       <ProjectsGrid />
       <About />
-      <Footer />
+      <ContactSection />
+      <Footer showLinks={false} />
     </main>
   );
 }

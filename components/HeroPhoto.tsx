@@ -15,13 +15,13 @@ import Image from 'next/image';
  */
 export default function HeroPhoto() {
   return (
-    <div className='pointer-events-none absolute right-6 top-[calc(50%+24px)] hidden h-[420px] w-[340px] -translate-y-1/2 md:block lg:right-16'>
+    <div className='relative z-10 order-2 mx-auto mt-10 h-[260px] w-full max-w-xs pointer-events-none md:absolute md:right-2 md:top-[calc(50%+56px)] md:order-none md:mx-0 md:mt-0 md:h-[420px] md:w-[340px] md:max-w-none md:-translate-y-1/2 lg:right-28'>
       <div
         className='relative h-full w-full overflow-hidden rounded-md border border-line
-          opacity-0 blur-sm grayscale scale-95
           transition-all duration-700 ease-out
-          group-hover/hero:opacity-90 group-hover/hero:blur-none
-          group-hover/hero:grayscale-0 group-hover/hero:scale-100'
+          md:opacity-0 md:blur-sm md:grayscale md:scale-95
+          md:group-hover/hero:opacity-90 md:group-hover/hero:blur-none
+          md:group-hover/hero:grayscale-0 md:group-hover/hero:scale-100'
       >
         {/* Placeholder — remove this div once you add a real photo */}
 
@@ -31,7 +31,7 @@ export default function HeroPhoto() {
             alt='Ed Keric'
             fill
             className='object-cover'
-            sizes='240px'
+            sizes='(min-width: 768px) 340px, 320px'
           />
         }
       </div>

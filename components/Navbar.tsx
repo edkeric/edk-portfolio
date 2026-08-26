@@ -8,7 +8,7 @@ const LINKS = [
   { label: 'Home', href: '/#top' },
   { label: 'Experiments', href: '/#experiments' },
   { label: 'About', href: '/#about' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Contact', href: '/#contact' },
 ];
 
 export default function Navbar() {

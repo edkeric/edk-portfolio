@@ -32,6 +32,15 @@ const config: Config = {
       letterSpacing: {
         widest2: "0.2em",
       },
+      keyframes: {
+        "nudge-x": {
+          "0%, 100%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(6px)" },
+        },
+      },
+      animation: {
+        "nudge-x": "nudge-x 1.4s ease-in-out infinite",
+      },
     },
   },
   plugins: [],

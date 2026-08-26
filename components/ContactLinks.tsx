@@ -25,25 +25,33 @@ export default function ContactLinks() {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.contact-link', {
-        opacity: 0,
-        y: 24,
-        duration: 0.6,
-        ease: 'power2.out',
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: rootRef.current,
-          // 85% rather than the usual 80% — this content is often already in the
-          // viewport on load (arriving via the navbar), so the check needs to catch
-          // that case too, not just a genuine scroll-into-view further down the page.
-          start: 'top 85%',
-          once: true,
-        },
-      });
-    }, rootRef);
+    let ctx: gsap.Context | undefined;
 
-    return () => ctx.revert();
+    // Deferred to the next animation frame — see About.tsx for why.
+    const raf = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        gsap.from('.contact-link', {
+          opacity: 0,
+          y: 24,
+          duration: 1,
+          ease: 'power2.out',
+          stagger: 0.4,
+          scrollTrigger: {
+            trigger: rootRef.current,
+            // 85% rather than the usual 80% — this content is often already in the
+            // viewport on load (arriving via the navbar), so the check needs to catch
+            // that case too, not just a genuine scroll-into-view further down the page.
+            start: 'top 85%',
+            once: true,
+          },
+        });
+      }, rootRef);
+    });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ctx?.revert();
+    };
   }, []);
 
   return (
