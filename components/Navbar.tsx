@@ -46,6 +46,28 @@ export default function Navbar() {
     }
   };
 
+  // Drive same-page section jumps ourselves instead of relying on the
+  // browser's native anchor-hash scrolling — Safari has long been
+  // inconsistent about respecting `scroll-behavior: smooth` for hash
+  // navigation (sometimes jumping instantly), which in turn can make
+  // ScrollTrigger miss the scroll entirely and skip the reveal animation.
+  // scrollIntoView's own smooth behavior doesn't have that problem, and
+  // still fires the incremental scroll events ScrollTrigger listens for.
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    const [path, hash] = href.split('#');
+    if ((path === '/' || path === '') && window.location.pathname === '/') {
+      const target = document.getElementById(hash);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', href);
+      }
+    }
+  };
+
   return (
     <header className='fixed inset-x-0 top-0 z-50 border-b border-line bg-bg/70 backdrop-blur-md'>
       <div className='relative mx-auto flex max-w-6xl items-center justify-between px-6 py-3 md:px-12'>
@@ -69,6 +91,7 @@ export default function Navbar() {
               key={link.label}
               href={link.href}
               onMouseEnter={handleEnter}
+              onClick={(e) => handleNavClick(e, link.href)}
               className='py-1 transition-colors hover:text-ink'
             >
               {link.label}
@@ -83,6 +106,7 @@ export default function Navbar() {
             <a
               key={link.label}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               className='whitespace-nowrap hover:text-ink'
             >
               {link.label}
