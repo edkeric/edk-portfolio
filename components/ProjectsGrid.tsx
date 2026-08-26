@@ -50,6 +50,16 @@ const PROJECTS: Project[] = [
     preview: '/projects/stem-splitter.png',
   },
   {
+    slug: 'healizer',
+    name: 'Healizer',
+    description:
+      'Ambient sounds for meditation and yoga — rain, birdsong and forest ambience, plus a synthesized 432Hz drone. Mix and layer freely, each with its own volume, entirely in the browser.',
+    tags: ['TypeScript', 'Next.js', 'Web Audio API'],
+    demo: 'https://healizer.vercel.app/',
+    repo: 'https://github.com/edkeric/healizer',
+    preview: '/projects/healizer.png',
+  },
+  {
     slug: 'modulab-jam',
     name: 'ModuLab Jam',
     description:
