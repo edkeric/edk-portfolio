@@ -40,6 +40,16 @@ const PROJECTS: Project[] = [
     preview: '/projects/waveform.png',
   },
   {
+    slug: 'stem-splitter',
+    name: 'Stem Splitter',
+    description:
+      'Splits a song into drums, bass, vocals and other — entirely in the browser, no upload, no backend. Runs Meta\'s open-source Demucs model via ONNX Runtime and WebAssembly, straight on your device.',
+    tags: ['TypeScript', 'Next.js', 'ONNX Runtime', 'WebAssembly'],
+    demo: 'https://stem-splitter-two.vercel.app/',
+    repo: 'https://github.com/edkeric/stem-splitter',
+    preview: '/projects/stem-splitter.png',
+  },
+  {
     slug: 'modulab-jam',
     name: 'ModuLab Jam',
     description:
